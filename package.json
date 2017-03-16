@@ -1,0 +1,33 @@
+{
+  "name": "comver",
+  "version": "0.0.0",
+  "description": "Get version of specific command module.",
+  "main": "comver.js",
+  "scripts": {
+    "test": "mocha comver-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkovasystems/comver.git"
+  },
+  "keywords": [
+    "version",
+    "command",
+    "module",
+    "comver"
+  ],
+  "author": "Richeve S. Bebedor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystems/comver/issues"
+  },
+  "homepage": "https://github.com/volkovasystems/comver#readme",
+  "dependencies": {
+    "clazof": "^0.16.0",
+    "comex": "^0.6.0",
+    "diatom": "^0.16.0",
+    "falzy": "^0.16.0",
+    "protype": "^0.20.0",
+    "wichevr": "^0.5.0"
+  }
+}
