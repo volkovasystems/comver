@@ -60,8 +60,10 @@
 
 const clazof = require( "clazof" );
 const comex = require( "comex" );
+const dephall = require( "dephall" );
 const diatom = require( "diatom" );
 const falzy = require( "falzy" );
+const letgo = require( "letgo" );
 const protype = require( "protype" );
 const wichevr = require( "wichevr" );
 const zelf = require( "zelf" );
@@ -176,17 +178,33 @@ Comver.prototype.execute = function execute( synchronous, option ){
 		@end-meta-configuration
 	*/
 
+	[ synchronous, option ] = dephall( arguments, [ BOOLEAN, OBJECT ], false, { } );
+
 	let versionPattern = this.versionPattern.toString( ).replace( /^\/|\/$/g, "" );
 
-	try{
-		return comex( `${ this.module } ${ this.parameterVersion }` )
-			.pipe( `grep -Po '(${ this.tokenMatch })?${ versionPattern }'` )
-			.pipe( `grep -Po '${ versionPattern }'` )
-			.context( this.self )
-			.execute( synchronous, option );
+	let command = comex( `${ this.module } ${ this.parameterVersion }` )
+		.pipe( `grep -Po '(${ this.tokenMatch })?${ versionPattern }'` )
+		.pipe( `grep -Po '${ versionPattern }'` );
 
-	}catch( error ){
-		throw new Error( `version retrieval failed, ${ error.stack }` );
+	if( synchronous ){
+		try{
+			return command.execute( synchronous, option );
+
+		}catch( error ){
+			throw new Error( `version retrieval failed, ${ error.stack }` );
+		}
+
+	}else{
+		return letgo.bind( this.self )( function later( cache ){
+			return command.execute( false, option )( function done( error, version ){
+				if( clazof( error, Error ) ){
+					return cache.callback( new Error( `version retrieval failed, ${ error.stack }` ), "" );
+
+				}else{
+					return cache.callback( null, version );
+				}
+			} );
+		} );
 	}
 };
 

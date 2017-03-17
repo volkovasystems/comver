@@ -1,6 +1,6 @@
 {
   "name": "comver",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Get version of specific command module.",
   "main": "comver.js",
   "scripts": {
@@ -25,8 +25,10 @@
   "dependencies": {
     "clazof": "^0.16.0",
     "comex": "^0.8.0",
+    "dephall": "^0.19.0",
     "diatom": "^0.16.0",
     "falzy": "^0.16.0",
+    "letgo": "^0.21.0",
     "protype": "^0.20.0",
     "wichevr": "^0.5.0",
     "zelf": "^0.10.0"
