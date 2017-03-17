@@ -131,19 +131,20 @@ cobralize@^0.11.0:
     falzy "^0.16.0"
     protype "^0.20.0"
 
-comex@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/comex/-/comex-0.8.0.tgz#b2b14454d951b2cdb926b56203095f2da9d1f1a2"
+comex@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/comex/-/comex-0.9.0.tgz#5b47d85f84f9e57e4ff0bbac385d3dc87d7d106a"
   dependencies:
     arid "^0.20.0"
     clazof "^0.16.0"
-    dephall "^0.19.0"
+    depher "^0.21.0"
     diatom "^0.16.0"
     falzy "^0.16.0"
     gnaw "^0.7.0"
     letgo "^0.21.0"
     plough "^0.20.0"
     protype "^0.20.0"
+    raze "^0.23.0"
     stringe "^0.1.0"
     truly "^0.16.0"
     zelf "^0.10.0"
@@ -204,6 +205,18 @@ depher@^0.20.0:
   dependencies:
     babel-runtime "^6.23.0"
     dephall "^0.18.0"
+    doubt "^0.22.0"
+    falze "^0.17.0"
+    harden "^0.19.0"
+    raze "^0.23.0"
+    zelf "^0.10.0"
+
+depher@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/depher/-/depher-0.21.0.tgz#fd6b9d7e124c06151091ee8ac4bc4f1432a5d2f2"
+  dependencies:
+    babel-runtime "^6.23.0"
+    dephall "^0.19.0"
     doubt "^0.22.0"
     falze "^0.17.0"
     harden "^0.19.0"

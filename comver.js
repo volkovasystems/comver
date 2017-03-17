@@ -49,9 +49,12 @@
 		{
 			"clazof": "clazof",
 			"comex": "comex",
+			"depher": "depher",
 			"diatom": "diatom",
 			"falzy": "falzy",
+			"letgo": "letgo",
 			"protype": "protype",
+			"raze": "raze",
 			"wichevr": "wichevr",
 			"zelf": "zelf"
 		}
@@ -60,11 +63,12 @@
 
 const clazof = require( "clazof" );
 const comex = require( "comex" );
-const dephall = require( "dephall" );
+const depher = require( "depher" );
 const diatom = require( "diatom" );
 const falzy = require( "falzy" );
 const letgo = require( "letgo" );
 const protype = require( "protype" );
+const raze = require( "raze" );
 const wichevr = require( "wichevr" );
 const zelf = require( "zelf" );
 
@@ -178,7 +182,9 @@ Comver.prototype.execute = function execute( synchronous, option ){
 		@end-meta-configuration
 	*/
 
-	[ synchronous, option ] = dephall( arguments, [ BOOLEAN, OBJECT ], false, { } );
+	let parameter = raze( arguments );
+	synchronous = depher( parameter, BOOLEAN, false );
+	option = depher( parameter, OBJECT, { } );
 
 	let versionPattern = this.versionPattern.toString( ).replace( /^\/|\/$/g, "" );
 
@@ -188,7 +194,7 @@ Comver.prototype.execute = function execute( synchronous, option ){
 
 	if( synchronous ){
 		try{
-			return command.execute( synchronous, option );
+			return command.execute( true, option );
 
 		}catch( error ){
 			throw new Error( `version retrieval failed, ${ error.stack }` );
@@ -196,7 +202,7 @@ Comver.prototype.execute = function execute( synchronous, option ){
 
 	}else{
 		return letgo.bind( this.self )( function later( cache ){
-			return command.execute( false, option )( function done( error, version ){
+			return command.execute( option )( function done( error, version ){
 				if( clazof( error, Error ) ){
 					return cache.callback( new Error( `version retrieval failed, ${ error.stack }` ), "" );
 

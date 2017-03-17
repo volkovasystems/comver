@@ -1,11 +1,12 @@
 yarn add \
 clazof \
 comex \
-dephall \
+depher \
 diatom \
 falzy \
 letgo \
 protype \
+raze \
 wichevr \
 zelf \
 --save
