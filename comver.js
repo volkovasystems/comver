@@ -52,7 +52,8 @@
 			"diatom": "diatom",
 			"falzy": "falzy",
 			"protype": "protype",
-			"wichevr": "wichevr"
+			"wichevr": "wichevr",
+			"zelf": "zelf"
 		}
 	@end-include
 */
@@ -63,6 +64,7 @@ const diatom = require( "diatom" );
 const falzy = require( "falzy" );
 const protype = require( "protype" );
 const wichevr = require( "wichevr" );
+const zelf = require( "zelf" );
 
 const PARAMETER_VERSION = "--version";
 const TOKEN_MATCH = "v";
@@ -83,10 +85,26 @@ Comver.prototype.initialize = function initialize( module ){
 		throw new Error( "invalid module" );
 	}
 
+	this.context( );
+
 	this.parameterVersion = PARAMETER_VERSION;
 	this.tokenMatch = TOKEN_MATCH;
 	this.versionPattern = VERSION_PATTERN;
 	this.module = module;
+
+	return this;
+};
+
+Comver.prototype.context = function context( self ){
+	/*;
+		@meta-configuration:
+			{
+				"self:required": "*"
+			}
+		@end-meta-configuration
+	*/
+
+	this.self = zelf( self );
 
 	return this;
 };
@@ -148,11 +166,11 @@ Comver.prototype.match = function match( pattern ){
 	return this;
 };
 
-Comver.prototype.execute = function execute( callback, option ){
+Comver.prototype.execute = function execute( synchronous, option ){
 	/*;
 		@meta-configuration:
 			{
-				"callback": "function",
+				"synchronous": "boolean",
 				"option": "object"
 			}
 		@end-meta-configuration
@@ -164,7 +182,8 @@ Comver.prototype.execute = function execute( callback, option ){
 		return comex( `${ this.module } ${ this.parameterVersion }` )
 			.pipe( `grep -Po '(${ this.tokenMatch })?${ versionPattern }'` )
 			.pipe( `grep -Po '${ versionPattern }'` )
-			.execute( callback, option );
+			.context( this.self )
+			.execute( synchronous, option );
 
 	}catch( error ){
 		throw new Error( `version retrieval failed, ${ error.stack }` );

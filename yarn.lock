@@ -131,21 +131,22 @@ cobralize@^0.11.0:
     falzy "^0.16.0"
     protype "^0.20.0"
 
-comex@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/comex/-/comex-0.6.0.tgz#7fc880d8a5f622cc131de3a2c64dc0c1896b8f44"
+comex@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/comex/-/comex-0.8.0.tgz#b2b14454d951b2cdb926b56203095f2da9d1f1a2"
   dependencies:
     arid "^0.20.0"
-    depher "^0.20.0"
+    clazof "^0.16.0"
+    dephall "^0.19.0"
     diatom "^0.16.0"
     falzy "^0.16.0"
     gnaw "^0.7.0"
-    optfor "^0.17.0"
+    letgo "^0.21.0"
     plough "^0.20.0"
     protype "^0.20.0"
-    raze "^0.23.0"
     stringe "^0.1.0"
     truly "^0.16.0"
+    zelf "^0.10.0"
 
 core-js@^2.4.0:
   version "2.4.1"
@@ -177,6 +178,21 @@ dephall@^0.18.0:
     doubt "^0.22.0"
     falze "^0.17.0"
     harden "^0.19.0"
+    pyck "^0.18.0"
+    raze "^0.23.0"
+    truly "^0.16.0"
+    zelf "^0.10.0"
+
+dephall@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/dephall/-/dephall-0.19.0.tgz#53067cd3514b21683ca6f7b965c1acc75e80b6a4"
+  dependencies:
+    arid "^0.20.0"
+    babel-runtime "^6.23.0"
+    doubt "^0.22.0"
+    falze "^0.17.0"
+    harden "^0.19.0"
+    plough "^0.20.0"
     pyck "^0.18.0"
     raze "^0.23.0"
     truly "^0.16.0"
@@ -414,18 +430,6 @@ optall@^0.12.0:
     pyck "^0.18.0"
     zelf "^0.10.0"
 
-optfor@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/optfor/-/optfor-0.17.0.tgz#74c7c4956d49e15c9be58b3395a0907d593b50a9"
-  dependencies:
-    babel-runtime "^6.23.0"
-    doubt "^0.22.0"
-    falze "^0.17.0"
-    harden "^0.19.0"
-    optall "^0.12.0"
-    protype "^0.20.0"
-    zelf "^0.10.0"
-
 optimist@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
@@ -568,8 +572,8 @@ truly@^0.16.0:
     protype "^0.20.0"
 
 uglify-js@^2.6:
-  version "2.8.12"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.12.tgz#8a50f5d482243650b7108f6080aa3a6afe2a6c55"
+  version "2.8.13"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.13.tgz#d0cdf02f3c661484fac601b7e723207b735a374c"
   dependencies:
     source-map "~0.5.1"
     uglify-to-browserify "~1.0.0"

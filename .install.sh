@@ -5,4 +5,5 @@ diatom \
 falzy \
 protype \
 wichevr \
+zelf \
 --save
