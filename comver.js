@@ -205,7 +205,8 @@ Comver.prototype.execute = function execute( synchronous, option ){
 		return letgo.bind( this.self )( function later( cache ){
 			return command.execute( option )( function done( error, version ){
 				if( clazof( error, Error ) ){
-					return cache.callback( new Error( `version retrieval failed, ${ error.stack }` ), "" );
+					return cache.callback( new Error( `version retrieval failed,
+						${ error.stack }` ), "" );
 
 				}else{
 					return cache.callback( null, version );
