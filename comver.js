@@ -48,12 +48,12 @@
 
 	@include:
 		{
-			"clazof": "clazof",
 			"comex": "comex",
+			"condev": "condev",
 			"depher": "depher",
 			"diatom": "diatom",
 			"falzy": "falzy",
-			"letgo": "letgo",
+			"pedon": "pedon",
 			"protype": "protype",
 			"raze": "raze",
 			"wichevr": "wichevr",
@@ -62,12 +62,12 @@
 	@end-include
 */
 
-const clazof = require( "clazof" );
 const comex = require( "comex" );
+const condev = require( "condev" );
 const depher = require( "depher" );
 const diatom = require( "diatom" );
 const falzy = require( "falzy" );
-const letgo = require( "letgo" );
+const pedon = require( "pedon" );
 const protype = require( "protype" );
 const raze = require( "raze" );
 const wichevr = require( "wichevr" );
@@ -77,9 +77,9 @@ const PARAMETER_VERSION = "--version";
 const TOKEN_MATCH = "v";
 const VERSION_PATTERN = /(\d+?\.)+\d+?/;
 
-const Comver = diatom( "Comver" );
+const CommandVersion = diatom( "CommandVersion" );
 
-Comver.prototype.initialize = function initialize( module ){
+CommandVersion.prototype.initialize = function initialize( module ){
 	/*;
 		@meta-configuration:
 			{
@@ -94,15 +94,16 @@ Comver.prototype.initialize = function initialize( module ){
 
 	this.context( );
 
+	this.module = module;
+
 	this.parameterVersion = PARAMETER_VERSION;
 	this.tokenMatch = TOKEN_MATCH;
 	this.versionPattern = VERSION_PATTERN;
-	this.module = module;
 
 	return this;
 };
 
-Comver.prototype.context = function context( self ){
+CommandVersion.prototype.context = function context( self ){
 	/*;
 		@meta-configuration:
 			{
@@ -116,7 +117,7 @@ Comver.prototype.context = function context( self ){
 	return this;
 };
 
-Comver.prototype.parameter = function parameter( version ){
+CommandVersion.prototype.parameter = function parameter( version ){
 	/*;
 		@meta-configuration:
 			{
@@ -134,7 +135,7 @@ Comver.prototype.parameter = function parameter( version ){
 	return this;
 };
 
-Comver.prototype.token = function token( match ){
+CommandVersion.prototype.token = function token( match ){
 	/*;
 		@meta-configuration:
 			{
@@ -152,7 +153,7 @@ Comver.prototype.token = function token( match ){
 	return this;
 };
 
-Comver.prototype.match = function match( pattern ){
+CommandVersion.prototype.match = function match( pattern ){
 	/*;
 		@meta-configuration:
 			{
@@ -164,7 +165,7 @@ Comver.prototype.match = function match( pattern ){
 		@end-meta-configuration
 	*/
 
-	if( falzy( pattern ) || !clazof( pattern, String, RegExp ) ){
+	if( falzy( pattern ) || !condev( pattern, [ STRING, RegExp ] ) ){
 		throw new Error( "invalid pattern" );
 	}
 
@@ -173,7 +174,7 @@ Comver.prototype.match = function match( pattern ){
 	return this;
 };
 
-Comver.prototype.execute = function execute( synchronous, option ){
+CommandVersion.prototype.execute = function execute( synchronous, option ){
 	/*;
 		@meta-configuration:
 			{
@@ -184,36 +185,64 @@ Comver.prototype.execute = function execute( synchronous, option ){
 	*/
 
 	let parameter = raze( arguments );
+
 	synchronous = depher( parameter, BOOLEAN, false );
+
 	option = depher( parameter, OBJECT, { } );
 
 	let versionPattern = this.versionPattern.toString( ).replace( /^\/|\/$/g, "" );
 
-	let command = comex( `${ this.module } ${ this.parameterVersion }` )
-		.pipe( `grep -Po '(${ this.tokenMatch })?${ versionPattern }'` )
-		.pipe( `grep -Po '${ versionPattern }'` );
+	var command = null;
+	if( pedon.LINUX || pedon.OSX ){
+		command = comex.bind( this.self )( `${ this.module } ${ this.parameterVersion }` )
+			.pipe( `grep -Po '(${ this.tokenMatch })?${ versionPattern }'` )
+			.pipe( `grep -Po '${ versionPattern }'` );
+
+	}else if( pedon.WINDOWS ){
+		//: @todo: Please implement this!
+		throw new Error( "platform not currently supported" );
+
+	}else{
+		throw new Error( "cannot determine platform, platform not supported" );
+	}
 
 	if( synchronous ){
 		try{
 			return command.execute( true, option );
 
 		}catch( error ){
-			throw new Error( `version retrieval failed, ${ error.stack }` );
+			throw new Error( `cannot get module version, ${ error.stack }` );
 		}
 
 	}else{
-		return letgo.bind( this.self )( function later( cache ){
-			return command.execute( option )( function done( error, version ){
-				if( clazof( error, Error ) ){
-					return cache.callback( new Error( `version retrieval failed,
-						${ error.stack }` ), "" );
+		let catcher = command.execute( option )
+			.then( function done( error, version ){
+				if( error instanceof Error ){
+					return catcher.pass( new Error( `cannot get module version, ${ error.stack }` ), "" );
 
 				}else{
-					return cache.callback( null, version );
+					return catcher.pass( null, version );
 				}
 			} );
-		} );
+
+		return catcher;
 	}
 };
 
-module.exports = Comver;
+const comver = function comver( module ){
+	/*;
+		@meta-configuration:
+			{
+				"module:required": "string"
+			}
+		@end-meta-configuration
+	*/
+
+	if( falzy( module ) || !protype( module, STRING ) ){
+		throw new Error( "invalid module" );
+	}
+
+	return CommandVersion.call( null, module ).context( zelf( this ) );
+};
+
+module.exports = comver;

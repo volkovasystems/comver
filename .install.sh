@@ -1,10 +1,10 @@
 yarn add \
-clazof \
 comex \
+condev \
 depher \
 diatom \
 falzy \
-letgo \
+pedon \
 protype \
 raze \
 wichevr \
