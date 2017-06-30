@@ -32,10 +32,10 @@
 			"file": "comver.js",
 			"module": "comver",
 			"author": "Richeve S. Bebedor",
+			"eMail": "richeve.bebedor@gmail.com",
 			"contributors": [
 				"John Lenon Maghanoy <johnlenonmaghanoy@gmail.com>"
 			],
-			"eMail": "richeve.bebedor@gmail.com",
 			"repository": "https://github.com/volkovasystems/comver.git",
 			"test": "comver-test.js",
 			"global": true
